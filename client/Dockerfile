@@ -2,6 +2,9 @@ FROM node:18-alpine as build
 
 WORKDIR /app
 
+ARG REACT_APP_API_URL=https://feathr-bot-3giubdgjdq-uc.a.run.app
+ENV REACT_APP_API_URL=https://feathr-bot-3giubdgjdq-uc.a.run.app
+
 COPY package*.json ./
 RUN npm install
 
