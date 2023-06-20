@@ -1,0 +1,139 @@
+openapi: 3.0.0
+info:
+  title: Feathr Bot API
+  version: 1.0.0
+servers:
+  - url: https://localhost:5000/
+paths:
+  /chat:
+    post:
+      summary: Start a chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequestSchema'
+      responses:
+        '200':
+          description: Chat results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponseSchema'
+  /chat/:
+    get:
+      summary: Get all chats
+      responses:
+        '200':
+          description: The Chat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllChatResponseSchema'
+  /chat/{chat_id}/:
+    get:
+      summary: Get single chat
+      parameters:
+        - name: chat_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The Chat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponseSchema'
+  /chat/{chat_id}/message:
+    post:
+      summary: Create chat message
+      parameters:
+        - name: chat_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageRequestSchema'
+      responses:
+        '200':
+          description: The Chat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponseSchema'
+  /analyze:
+    post:
+      summary: Sentiment analysis on text
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyzeRequestSchema'
+      responses:
+        '200':
+          description: Results of analysis
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyzeResponseSchema'
+components:
+  schemas:
+    ChatRequestSchema:
+      type: object
+      properties:
+        message:
+          type: string
+        sassy:
+          type: boolean
+      required:
+        - message
+    ChatResponseSchema:
+      type: object
+      properties:
+        id:
+          type: integer
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageResponseSchema'
+        title:
+          type: string
+    AllChatResponseSchema:
+      type: array
+      items: 
+        $ref: '#/components/schemas/ChatResponseSchema'
+    MessageResponseSchema:
+      type: object
+      properties:
+        content:
+          type: string
+        role:
+          type: string
+    MessageRequestSchema:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
+    AnalyzeRequestSchema:
+      type: object
+      properties:
+        prompt:
+          type: string
+      required:
+        - message
+    AnalyzeResponseSchema:
+      type: object
+      properties:
+        result:
+          type: string

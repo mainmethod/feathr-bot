@@ -30,7 +30,7 @@ export const MessageStack = () => {
                         style={{ color: isSassy ? 'red' : '' }}
                     />
                     <Typography variant="h2" component="h2">
-                        FEATHR BOTR
+                        FEATHR BOT
                     </Typography>
                 </Stack>
             )}
