@@ -22,5 +22,5 @@ COPY . .
 COPY pyproject.toml ./pyproject.toml
 RUN poetry install --no-dev
 
-# EXPOSE 5000
-# # CMD [ "poetry", "run", "python", "-m", "flask", "run", "--host=0.0.0.0" ]
+EXPOSE 8080
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "app:app"]
