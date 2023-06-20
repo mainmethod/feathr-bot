@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    volumes:
+      - "./api:/app"
+    ports:
+      - 5000:5000
+    command: poetry run gunicorn --bind 0.0.0.0:5000 app:app
+    env_file:
+      - ./api/.env
+
+  web:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    volumes:
+      - "./client:/app"
+      - "/app/node_modules"
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_API_URL=http://localhost:5000
+    depends_on:
+      - api
