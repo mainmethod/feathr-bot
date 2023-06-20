@@ -1,5 +1,5 @@
 # Feathr Bot
-A support engineer chat bot for Feathr
+Support engineer chat bot for Feathr
 See in action [here](https://feathr-web-3giubdgjdq-uc.a.run.app/)
 
 ## Running
